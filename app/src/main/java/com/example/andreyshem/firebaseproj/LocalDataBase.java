@@ -1,6 +1,5 @@
 package com.example.andreyshem.firebaseproj;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -25,7 +24,6 @@ public class LocalDataBase extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-       // UpdateMyDB (db, oldVersion, newVersion);
         db.execSQL("DROP TABLE IF EXISTS IMG_SAVER");
         onCreate(db);
     }

@@ -52,7 +52,7 @@
             android:text="@string/description"/>
 
         <EditText
-            android:layout_width="200dp"
+            android:layout_width="@dimen/widthEditTextDescr"
             android:id="@+id/editTxtDescr"
             android:layout_height="wrap_content"
             android:maxLines="4"

@@ -2,4 +2,17 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="widthEditTextDescr">200dp</dimen>
+
+    <dimen name="widthCardView">200dp</dimen>
+    <dimen name="heightCardView">200dp</dimen>
+    <dimen name="marginCardView">5dp</dimen>
+    <dimen name="cornerRadiusCardView">4dp</dimen>
+    <dimen name="marginLeftInfoText">4dp</dimen>
+    <dimen name="marginBottomInfoText">4dp</dimen>
+
+    <dimen name="txtSizeCategoryTxtView">16sp</dimen>
+    <dimen name="layoutHeightCategoryTxtView">80dp</dimen>
+
+
 </resources>

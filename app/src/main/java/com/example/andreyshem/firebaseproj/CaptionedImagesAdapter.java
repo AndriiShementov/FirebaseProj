@@ -42,7 +42,6 @@ import android.widget.TextView;
     public void onBindViewHolder(CaptionedImagesAdapter.ViewHolder holder, int position) {
         CardView cardView = holder.cardView;
         ImageView imageView = (ImageView)cardView.findViewById(R.id.info_image);
-        //Drawable drawable = cardView.getResources().getDrawable(imageInt[position]);
         imageView.setImageBitmap(img[position]);
         imageView.setContentDescription(captions);
         TextView textView = (TextView)cardView.findViewById(R.id.info_text);

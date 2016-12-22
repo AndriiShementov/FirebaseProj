@@ -13,18 +13,15 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -43,18 +40,17 @@ public class ImageListActivity extends AppCompatActivity {
     private StorageReference mStorageRef;
     private static final String TAG = "Storage#DownloadService";
 
-    String fileName;
-    SQLiteOpenHelper localDataBase;
-    SQLiteDatabase db;
-    //StorageTask<StreamDownloadTask.TaskSnapshot> islandRef;
+    private String fileName;
+    private SQLiteOpenHelper localDataBase;
+    private SQLiteDatabase db;
     private StorageReference islandRef;
-    String imgDescription;
+    private String imgDescription;
     public static Bitmap[] imgArrays;
-    CaptionedImagesAdapter adapter;
-    int i;
-    Cursor cursor;
+    private CaptionedImagesAdapter adapter;
+    private int i;
+    private Cursor cursor;
 
-    File[] localFile = null;
+    private File[] localFile = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +61,8 @@ public class ImageListActivity extends AppCompatActivity {
         try {
             localDataBase = new LocalDataBase(this);
             db = localDataBase.getWritableDatabase();
-            // IMG_SAVER
+
             cursor = db.query("IMG_SAVER",new String[] {"NAME_IMG"}, "NAME_CATEGORY = ?", new String[]{selectedCategoryName}, null,null,null);
-           // Cursor cursor =db.rawQuery("SELECT NAME_IMG FROM IMG_SAVER WHERE NAME_CATEGORY = " + selectedCategoryName, null);
 
             imgArrays = new Bitmap[cursor.getCount()];
             localFile = new File[cursor.getCount()];
@@ -90,7 +85,7 @@ public class ImageListActivity extends AppCompatActivity {
                                 }
                                 adapter = new CaptionedImagesAdapter(imgDescription,imgArrays);
 
-                                imgDescription = "sdfsdf";
+                                imgDescription = "Some description"; // for each pictures
 
                                 RecyclerView imgRecycler = (RecyclerView) findViewById (R.id.images_recycler);
                                 imgRecycler.setAdapter(adapter);
@@ -111,7 +106,6 @@ public class ImageListActivity extends AppCompatActivity {
         }catch (SQLiteException e){
             Log.d(TAG,"Database unavailable");
         }
-
     }
 
     @Override
@@ -159,7 +153,6 @@ public class ImageListActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            // compress image
 
              //Load image to db
             FirebaseStorage storage = FirebaseStorage.getInstance();
