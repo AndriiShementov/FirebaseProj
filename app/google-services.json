@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "974012230265",
+    "firebase_url": "https://fbproj-72c82.firebaseio.com",
+    "project_id": "fbproj-72c82",
+    "storage_bucket": "fbproj-72c82.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:974012230265:android:120a33b07ecd5454",
+        "android_client_info": {
+          "package_name": "com.example.andreyshem.firebaseproj"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "974012230265-jnn432b2s237bpqpqtv6ni93dpaov7g6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.andreyshem.firebaseproj",
+            "certificate_hash": "5F7AECBBDA997D75A5DE289CFDF970EBC1B6D31B"
+          }
+        },
+        {
+          "client_id": "974012230265-gid8o1pbm4hldmps4t8vlm4b5l7jga23.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFNUH1B0IrdJZYCE66-Azd2o6KTPLO-jg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "974012230265-gid8o1pbm4hldmps4t8vlm4b5l7jga23.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
