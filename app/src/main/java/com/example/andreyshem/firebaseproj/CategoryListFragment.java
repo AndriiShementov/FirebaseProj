@@ -11,19 +11,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CategoryListFragment extends Fragment {
+public class CategoryListFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     ArrayAdapter<String> mListAdapter;
     public static String selectedCategoryName;
@@ -64,27 +58,18 @@ public class CategoryListFragment extends Fragment {
             }
         });
 
-        // Read from the database and update ListAdapter
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("title");
-
         mListAdapter.clear();
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    // Create records according Firebase
-                    String ss = postSnapshot.getKey()+ " (" + postSnapshot.getValue() + ")";
-                    mListAdapter.add(ss);
-                }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });
+        // Read from the database and update ListAdapter
+        FirebaseDB firebaseDB = new FirebaseDB();
+        firebaseDB.recordToLstVw(mListAdapter);
+
         return rootView;
     }
 
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+    }
 }

@@ -1,35 +1,17 @@
 package com.example.andreyshem.firebaseproj;
 
 import android.content.Intent;
-
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
-
-
-
-
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-
-
-
-import java.io.FileInputStream;
-import java.util.HashMap;
-import java.util.Map;
-
 
 public class SettingActivity extends AppCompatActivity {
 
     //private DatabaseReference mDatabase;
     private EditText editTextName;
     private EditText editTextDescript;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,19 +32,11 @@ public class SettingActivity extends AppCompatActivity {
 
         if (id == R.id.add_category){
 
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("title");
-
             editTextName = (EditText) findViewById(R.id.editTxtName);
             editTextDescript = (EditText) findViewById(R.id.editTxtDescr);
 
-            String mName = editTextName.getText().toString();
-            String descr = editTextDescript.getText().toString();
-
-            Map<String, Object> childUpdates = new HashMap<>();
-            childUpdates.put(mName,descr);
-
-            myRef.updateChildren(childUpdates);
+            FirebaseDB firebaseDB = new FirebaseDB();
+            firebaseDB.recordToDB(editTextName, editTextDescript);
 
             startActivity(new Intent(this, MainActivity.class));
             return true;
