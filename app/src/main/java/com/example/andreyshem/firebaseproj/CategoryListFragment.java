@@ -21,6 +21,7 @@ public class CategoryListFragment extends Fragment implements AdapterView.OnItem
 
     ArrayAdapter<String> mListAdapter;
     public static String selectedCategoryName;
+    private ListView mListView;
 
     public CategoryListFragment() {
         // Required empty public constructor
@@ -37,7 +38,6 @@ public class CategoryListFragment extends Fragment implements AdapterView.OnItem
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         mListAdapter = new ArrayAdapter<String>(
                 getActivity(),
                 R.layout.item_list,
@@ -45,19 +45,9 @@ public class CategoryListFragment extends Fragment implements AdapterView.OnItem
                 new ArrayList<String>());
 
         View rootView = inflater.inflate(R.layout.fragment_category_list, container, false);
-        final ListView mListView = (ListView) rootView.findViewById(R.id.categoryListView);
-
+        mListView = (ListView) rootView.findViewById(R.id.categoryListView);
         mListView.setAdapter(mListAdapter);
-
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedFromList =(mListView.getItemAtPosition(position).toString());
-                selectedCategoryName = selectedFromList.substring(0,selectedFromList.indexOf(" ("));
-                startActivity(new Intent(getActivity(), ImageListActivity.class));
-            }
-        });
-
+        mListView.setOnItemClickListener(this);
         mListAdapter.clear();
 
         // Read from the database and update ListAdapter
@@ -67,9 +57,10 @@ public class CategoryListFragment extends Fragment implements AdapterView.OnItem
         return rootView;
     }
 
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        String selectedFromList =(mListView.getItemAtPosition(position).toString());
+        selectedCategoryName = selectedFromList.substring(0,selectedFromList.indexOf(" ("));
+        startActivity(new Intent(getActivity(), ImageListActivity.class));
     }
 }
