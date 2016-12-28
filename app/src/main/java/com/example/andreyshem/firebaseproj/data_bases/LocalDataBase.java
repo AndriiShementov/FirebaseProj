@@ -1,4 +1,4 @@
-package com.example.andreyshem.firebaseproj;
+package com.example.andreyshem.firebaseproj.data_bases;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

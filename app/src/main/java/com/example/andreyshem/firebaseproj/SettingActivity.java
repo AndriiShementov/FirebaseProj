@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
+import com.example.andreyshem.firebaseproj.data_bases.FirebaseDB;
+
 public class SettingActivity extends AppCompatActivity {
 
     //private DatabaseReference mDatabase;

@@ -14,7 +14,7 @@ import android.widget.TextView;
  * Created by andreyshem on 14.12.2016.
  */
 
- class CaptionedImagesAdapter extends RecyclerView.Adapter<CaptionedImagesAdapter.ViewHolder> {
+public class CaptionedImagesAdapter extends RecyclerView.Adapter<CaptionedImagesAdapter.ViewHolder> {
     private String captions;
     private Bitmap[] img;
 
@@ -42,9 +42,10 @@ import android.widget.TextView;
     public void onBindViewHolder(CaptionedImagesAdapter.ViewHolder holder, int position) {
         CardView cardView = holder.cardView;
         ImageView imageView = (ImageView)cardView.findViewById(R.id.info_image);
+        TextView textView = (TextView)cardView.findViewById(R.id.info_text);
+
         imageView.setImageBitmap(img[position]);
         imageView.setContentDescription(captions);
-        TextView textView = (TextView)cardView.findViewById(R.id.info_text);
         textView.setText(captions);
     }
 

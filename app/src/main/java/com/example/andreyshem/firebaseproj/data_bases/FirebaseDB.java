@@ -1,4 +1,4 @@
-package com.example.andreyshem.firebaseproj;
+package com.example.andreyshem.firebaseproj.data_bases;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.andreyshem.firebaseproj.CaptionedImagesAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -43,6 +44,7 @@ import static com.example.andreyshem.firebaseproj.CategoryListFragment.selectedC
 public class FirebaseDB {
     private StorageReference islandRef;
     private StorageReference mStorageRef;
+    public static StorageReference[] commonRef;
 
     private static final String TAG = "Storage#DownloadService";
     private static final String FIREBASE_URL = "gs://fbproj-72c82.appspot.com/";
@@ -53,16 +55,45 @@ public class FirebaseDB {
 
     public static Bitmap[] imgArrays = null;
     private File[] localFile = null;
+
     private Cursor cursor;
     private CaptionedImagesAdapter adapter;
     private String imgDescription;
+    private ProgressDialog pd;
 
     private int i;
 
-    public ProgressDialog pd;
+
 
     public FirebaseDB(){}
 
+    //   ================================ new approach for download =======================>
+    public void setImgArrays (SQLiteDatabase db, final Activity activity){
+
+        try {
+            cursor = db.query( NAME_TABLE,new String[] {NAME_IMAGE}, NAME_CATEGORY + " = ?", new String[]{selectedCategoryName}, null,null,null);
+            commonRef = new StorageReference[cursor.getCount()];
+            i = 0;
+            if (cursor.moveToFirst()){
+                do{
+                    mStorageRef = FirebaseStorage.getInstance().getReference();
+                    String path = selectedCategoryName + "/" + cursor.getString(0);
+                    commonRef[i] = mStorageRef.child(path);
+                    i++;
+                }while (cursor.moveToNext());
+            }
+            cursor.close();
+            db.close();
+        }catch (SQLiteException e){
+            Log.d(TAG,"Database unavailable");
+
+            String toastText = "Database unavailable";
+            Toast toast = Toast.makeText(activity.getApplicationContext(), toastText, Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
+
+//   ================================ old approach for download =======================>
     public void downloadImages(SQLiteDatabase db,
                               final Activity activity, final RecyclerView imgRecycler,
                               final GridLayoutManager layoutManager){

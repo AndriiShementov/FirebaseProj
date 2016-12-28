@@ -10,9 +10,15 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.GridView;
+
+import com.example.andreyshem.firebaseproj.data_bases.FirebaseDB;
+import com.example.andreyshem.firebaseproj.data_bases.LocalDataBase;
+
 import java.io.File;
 
 import static com.example.andreyshem.firebaseproj.CategoryListFragment.selectedCategoryName;
+import static com.example.andreyshem.firebaseproj.data_bases.FirebaseDB.commonRef;
 
 public class ImageListActivity extends AppCompatActivity {
     private static final int REQUEST = 1;
@@ -22,17 +28,23 @@ public class ImageListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_image_list);
+
+        setContentView(R.layout.activty_image_grid_view);
         setTitle(selectedCategoryName);
 
-        RecyclerView imgRecycler = (RecyclerView) findViewById (R.id.images_recycler);
-        GridLayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),2);
-
-        localDataBase = new LocalDataBase(this);
-        SQLiteDatabase db = localDataBase.getWritableDatabase();
+        initialFDB();
 
         FirebaseDB firebaseDB = new FirebaseDB();
-        firebaseDB.downloadImages( db, this, imgRecycler,layoutManager);
+        firebaseDB.setImgArrays(db, this);
+
+        GridView gridView = (GridView)findViewById(R.id.usage_gridview);
+        gridView.setAdapter(new ImageListAdapter(ImageListActivity.this, commonRef, this));
+
+//        <===============  Using CaptionedImageAdaptor =================================>
+//        setContentView(R.layout.activity_image_list);
+//        RecyclerView imgRecycler = (RecyclerView) findViewById (R.id.images_recycler);
+//        GridLayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),2);
+//        firebaseDB.downloadImages( db, this, imgRecycler,layoutManager);
     }
 
     @Override
@@ -52,15 +64,14 @@ public class ImageListActivity extends AppCompatActivity {
             String fileName = filepath.getName();
 
             // insert the record to local database
-            localDataBase = new LocalDataBase(this);
-            db = localDataBase.getWritableDatabase();
+            initialFDB();
 
             FirebaseDB firebaseDB = new FirebaseDB();
             firebaseDB.recordImageInDB(db, fileName, selectedImage);
-            this.recreate();
 
         }
         super.onActivityResult(requestCode, resultCode, data);
+        this.recreate();
     }
 
     @Override
@@ -79,5 +90,10 @@ public class ImageListActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+    }
+
+    protected void initialFDB(){
+        localDataBase = new LocalDataBase(this);
+        db = localDataBase.getWritableDatabase();
     }
 }
