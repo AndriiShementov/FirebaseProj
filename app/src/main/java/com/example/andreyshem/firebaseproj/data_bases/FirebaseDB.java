@@ -63,8 +63,6 @@ public class FirebaseDB {
 
     private int i;
 
-
-
     public FirebaseDB(){}
 
     //   ================================ new approach for download =======================>
@@ -73,10 +71,10 @@ public class FirebaseDB {
         try {
             cursor = db.query( NAME_TABLE,new String[] {NAME_IMAGE}, NAME_CATEGORY + " = ?", new String[]{selectedCategoryName}, null,null,null);
             commonRef = new StorageReference[cursor.getCount()];
+            mStorageRef = FirebaseStorage.getInstance().getReference();
             i = 0;
             if (cursor.moveToFirst()){
                 do{
-                    mStorageRef = FirebaseStorage.getInstance().getReference();
                     String path = selectedCategoryName + "/" + cursor.getString(0);
                     commonRef[i] = mStorageRef.child(path);
                     i++;

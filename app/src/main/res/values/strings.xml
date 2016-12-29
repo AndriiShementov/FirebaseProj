@@ -10,4 +10,6 @@
     <string name="typing_description_here">typing description here</string>
     <string name="save">Save</string>
     <string name="add_new_picture">Add a new picture</string>
+    <string name="open_page">Open page</string>
+    <string name="please_wait">Please wait ...</string>
 </resources>

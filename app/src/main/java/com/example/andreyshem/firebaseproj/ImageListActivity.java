@@ -23,6 +23,7 @@ import static com.example.andreyshem.firebaseproj.data_bases.FirebaseDB.commonRe
 public class ImageListActivity extends AppCompatActivity {
     private static final int REQUEST = 1;
     private SQLiteOpenHelper localDataBase;
+    private GridView gridView;
     SQLiteDatabase db;
 
     @Override
@@ -37,7 +38,7 @@ public class ImageListActivity extends AppCompatActivity {
         FirebaseDB firebaseDB = new FirebaseDB();
         firebaseDB.setImgArrays(db, this);
 
-        GridView gridView = (GridView)findViewById(R.id.usage_gridview);
+        gridView = (GridView)findViewById(R.id.usage_gridview);
         gridView.setAdapter(new ImageListAdapter(ImageListActivity.this, commonRef, this));
 
 //        <===============  Using CaptionedImageAdaptor =================================>
@@ -63,7 +64,7 @@ public class ImageListActivity extends AppCompatActivity {
             File filepath = new File(path);
             String fileName = filepath.getName();
 
-            // insert the record to local database
+            // insert the record to the local database
             initialFDB();
 
             FirebaseDB firebaseDB = new FirebaseDB();

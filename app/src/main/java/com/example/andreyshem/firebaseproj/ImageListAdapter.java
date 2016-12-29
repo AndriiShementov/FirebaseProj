@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.storage.StorageReference;
 
@@ -33,8 +34,8 @@ public class ImageListAdapter extends ArrayAdapter {
         inflater = LayoutInflater.from(context);
 
         pd = new ProgressDialog(activity);
-        pd.setTitle("Open page");
-        pd.setMessage("Please wait ...");
+        pd.setTitle(R.string.open_page);
+        pd.setMessage(context.getString(R.string.please_wait));
         pd.show();
     }
 
@@ -48,8 +49,9 @@ public class ImageListAdapter extends ArrayAdapter {
                 .with(context)
                 .using(new FirebaseImageLoader())
                 .load(storageReference[position])
-                .error(R.mipmap.ic_launcher) // will be displayed if the image cannot be loaded
                 .crossFade()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+               // .error(R.mipmap.ic_launcher) // will be displayed if the image cannot be loaded
                 .into((ImageView) convertView);
         pd.dismiss();
         return convertView;
